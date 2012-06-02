@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery Placeholder Polyfill Demo (DIY)</title>
+		<style type="text/css">
+		
+		.placeholder { color: #a0a0a0; }
+		::-webkit-input-placeholder { color: #a0a0a0; }
+		:-moz-placeholder { color: #a0a0a0; }
+		
+		/* ignore this stuff */
+		.clear { clear: both; }
+		p { margin: 0 0 10px 0; }
+		a { color: #155ff5; text-decoration: none; }
+		a:hover { color: #003cb6; text-decoration: none; }
+		body { background: #fff; padding: 100px 0; font-family: Helvetica, arial, sans-serif; font-size: 14px; color: #202020; -webkit-font-smoothing: antialiased; text-align: center; }
+		#wrapper { width: 841px; margin: 0 auto; text-align: left; }
+		#content { margin: 40px 0 0 0; }
+		#content p { margin: 0; }
+		#content > div { float: left; width: 400px; }
+		#content > div:first-child { margin-right: 40px; }
+		ul.demos { list-style: none; margin: 0; padding: 0; }
+		ul.demos li { margin: 0 0 15px 0; padding: 15px; background: #fefefe; border: 1px solid #e8e8e8; -webkit-border-radius: 4px; -moz-border-radius: 4px; box-shadow: 0 2px 2px rgba(0,0,0,0.1); -moz-box-shadow: 0 2px 2px rgba(0,0,0,0.1); }
+		ul.demos li p.desc { margin-bottom: 10px !important; }
+		ul.demos li p.field { background: #f8f8f8; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; padding: 20px; position: relative; box-shadow: inset 0 1px 5px rgba(0,0,0,0.05); -moz-box-shadow: inset 0 1px 5px rgba(0,0,0,0.05); }
+		</style>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-git.js"></script>
+		<script type="text/javascript" src="jquery.placeholder.js"></script>
+		<script type="text/javascript">
+		$(function() {
+			$('.emulate input, .emulate textarea').placeholder({force: true});
+		});
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<h1>jQuery Placeholder Polyfill Demo</h1>
+			<p>If everything's working right, you shouldn't be able to notice the difference between the two!</p>
+			<p><a href="https://github.com/diy/jquery-placeholder">&larr; On Github</a></p>
+			<div id="content">
+				<!-- Emulated -->
+				<div class="emulate">
+					<h2>Emulated Placeholders</h2>
+					<ul class="demos">
+						<li>
+							<p class="desc">Vanilla (no styles):</p>
+							<p class="field">
+								<input type="text" placeholder="Type something!">
+							</p>
+						</li>
+						<li>
+							<p class="desc">Non-standard padding, border, and margin:</p>
+							<p class="field">
+								<input type="text" placeholder="Type something!" style="padding: 15px 20px; border: 5px solid #e8e8e8; font-size: 18px; margin: 10px 0 0 5px">
+							</p>
+						</li>
+						<li>
+							<p class="desc">Absolute positioning:</p>
+							<p class="field" style="height:45px">
+								<input type="text" placeholder="Type something!" style="padding: 8px 10px; border: 2px solid #e8e8e8; font-size: 15px; position: absolute; top: 20px; left: 35px">
+							</p>
+						</li>
+					</ul>
+				</div>
+				<!-- Native -->
+				<div class="native">
+					<h2>Native Placeholders</h2>
+					<ul class="demos">
+						<li>
+							<p class="desc">Vanilla (no styles):</p>
+							<p class="field">
+								<input type="text" placeholder="Type something!">
+							</p>
+						</li>
+						<li>
+							<p class="desc">Non-standard padding, border, and margin:</p>
+							<p class="field">
+								<input type="text" placeholder="Type something!" style="padding: 15px 20px; border: 5px solid #e8e8e8; font-size: 18px; margin: 10px 0 0 5px">
+							</p>
+						</li>
+						<li>
+							<p class="desc">Absolute positioning:</p>
+							<p class="field" style="height:45px">
+								<input type="text" placeholder="Type something!" style="padding: 8px 10px; border: 2px solid #e8e8e8; font-size: 15px; position: absolute; top: 20px; left: 35px">
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</body>
+</html>

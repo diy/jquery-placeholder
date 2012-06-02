@@ -33,12 +33,16 @@
 						var text = $(this).attr('placeholder') || '';
 						if (text.length) {
 							var $placeholder = $('<span>').addClass('placeholder').html(text);
-						
+							
+							// clear existing placeholder
+							$input.data('placeholder', text);
+							$input.removeAttr('placeholder');
+							
 							// mimic css styles applied to textbox
 							var cssProperties = [
 								'-moz-box-sizing', '-webkit-box-sizing', 'box-sizing', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
-								'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'border-top', 'border-right', 'border-bottom', 'border-left',
-								'line-height', 'font-size', 'font-family', 'width', 'height'
+								'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
+								'line-height', 'font-size', 'font-family', 'width', 'height', 'top', 'left', 'right', 'bottom'
 							];
 							for (var i = 0; i < cssProperties.length; i++) {
 								$placeholder.css(cssProperties[i], $input.css(cssProperties[i]));
@@ -54,6 +58,10 @@
 								'overflow': 'hidden',
 								'z-index': zIndex + 1,
 								'background': 'none',
+								'border-top-style': 'solid',
+								'border-right-style': 'solid',
+								'border-bottom-style': 'solid',
+								'border-left-style': 'solid',
 								'border-top-color': 'transparent',
 								'border-right-color': 'transparent',
 								'border-bottom-color': 'transparent',
@@ -70,7 +78,9 @@
 							
 							// show / hide
 							$placeholder.on('mousedown', function() {
-								$input.trigger('focus');
+								window.setTimeout(function(){
+									$input.trigger('focus');
+								}, 0);
 							});
 							$input.on('focus.placeholder', function() {
 								$placeholder.hide();
