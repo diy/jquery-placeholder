@@ -1,0 +1,8 @@
+.placeholder { color: #a0a0a0; }
+::-webkit-input-placeholder { color: #a0a0a0; }
+:-moz-placeholder { color: #a0a0a0; }
+#demos { margin-bottom: 30px; }
+#demos ul { list-style: none; margin: 0; padding: 0; }
+#demos ul li { margin: 0 0 15px 0; padding: 15px; background: #fefefe; border: 1px solid #e8e8e8; -webkit-border-radius: 4px; -moz-border-radius: 4px; box-shadow: 0 2px 2px rgba(0,0,0,0.1); -moz-box-shadow: 0 2px 2px rgba(0,0,0,0.1); }
+#demos ul li p.desc { margin-bottom: 10px !important; }
+#demos ul li p.field { margin-bottom: 0 !important; background: #f8f8f8; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; padding: 10px; position: relative; box-shadow: inset 0 1px 5px rgba(0,0,0,0.05); -moz-box-shadow: inset 0 1px 5px rgba(0,0,0,0.05); }

@@ -3,18 +3,28 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>jquery-placeholder by diy</title>
+    <title>jquery-placeholder by DIY</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/placeholder.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-git.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/diy/jquery-placeholder/master/jquery.placeholder.js"></script>
+    <script type="text/javascript">
+    $(function() {
+      $('.emulate input, .emulate textarea').placeholder({force: true});
+    });
+    </script>
   </head>
   <body>
+    <a href="https://github.com/diy/jquery-placeholder"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
     <div class="wrapper">
       <header>
+        <p><a href="https://diy.org/"><img src="https://d10yyh63llk3uw.cloudfront.net/images/parents/logo_header.png" alt="DIY"></a></p>
         <h1>jquery-placeholder</h1>
         <p>A jQuery plugin that polyfills the HTML5 &quot;placeholder&quot; attribute.</p>
         <p class="view"><a href="https://github.com/diy/jquery-placeholder">View the Project on GitHub <small>diy/jquery-placeholder</small></a></p>
@@ -61,6 +71,59 @@
 </pre>
 </div>
 
+<h2>Demos</h2>
+
+<div id="demos">
+  <!-- Emulated -->
+  <div class="emulate">
+    <h3>Emulated Placeholders</h3>
+    <ul>
+      <li>
+        <p class="desc">Vanilla (no styles):</p>
+        <p class="field">
+          <input type="text" placeholder="Type something!">
+        </p>
+      </li>
+      <li>
+        <p class="desc">Non-standard padding, border, and margin:</p>
+        <p class="field">
+          <input type="text" placeholder="Type something!" style="padding: 15px 20px; border: 5px solid #e8e8e8; font-size: 18px; margin: 10px 0 0 5px">
+        </p>
+      </li>
+      <li>
+        <p class="desc">Absolute positioning:</p>
+        <p class="field" style="height:45px">
+          <input type="text" placeholder="Type something!" style="padding: 8px 10px; border: 2px solid #e8e8e8; font-size: 15px; position: absolute; top: 10px; left: 35px">
+        </p>
+      </li>
+    </ul>
+  </div>
+  <!-- Native -->
+  <div class="native">
+    <h3>Native Placeholders</h3>
+    <ul>
+      <li>
+        <p class="desc">Vanilla (no styles):</p>
+        <p class="field">
+          <input type="text" placeholder="Type something!">
+        </p>
+      </li>
+      <li>
+        <p class="desc">Non-standard padding, border, and margin:</p>
+        <p class="field">
+          <input type="text" placeholder="Type something!" style="padding: 15px 20px; border: 5px solid #e8e8e8; font-size: 18px; margin: 10px 0 0 5px">
+        </p>
+      </li>
+      <li>
+        <p class="desc">Absolute positioning:</p>
+        <p class="field" style="height:45px">
+          <input type="text" placeholder="Type something!" style="padding: 8px 10px; border: 2px solid #e8e8e8; font-size: 15px; position: absolute; top: 10px; left: 35px">
+        </p>
+      </li>
+    </ul>
+  </div>
+  <div class="clear"></div>
+</div>
 
 <h2>License</h2>
 
