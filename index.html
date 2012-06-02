@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>jquery-placeholder by diy</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>jquery-placeholder</h1>
+        <p>A jQuery plugin that polyfills the HTML5 &quot;placeholder&quot; attribute.</p>
+        <p class="view"><a href="https://github.com/diy/jquery-placeholder">View the Project on GitHub <small>diy/jquery-placeholder</small></a></p>
+        <ul>
+          <li><a href="https://github.com/diy/jquery-placeholder/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/diy/jquery-placeholder/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/diy/jquery-placeholder">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>jQuery "placeholder" Attribute Polyfill</h1>
+
+<p>A basic jQuery plugin that reads the <a href="http://www.w3schools.com/html5/att_input_placeholder.asp"><strong>"placeholder"</strong> attribute</a> (HTML5) and renders the placeholder text as an overlay (if not natively supported). Unlike most other plugins, this works by adding a properly-positioned <code>&lt;span&gt;</code> on top of the input element rather than setting its value. This keeps form serialization &amp; validation from breaking. </p>
+
+<h2>Usage</h2>
+
+<div class="highlight">
+<pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input,textarea'</span><span class="p">).</span><span class="nx">placeholder</span><span class="p">();</span>
+</pre>
+</div>
+
+
+<h3>Options</h3>
+
+<table>
+<tr>
+<th>Option</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+<tr>
+<td valign="top">force</td>
+        <td valign="top"><code>bool</code></td>
+        <td valign="top"><code>false</code></td>
+        <td valign="top">If <code>true</code>, artificial placeholder elements will be added even if the browser natively supports them.</td>
+    </tr>
+</table><h3>CSS Styling</h3>
+
+<div class="highlight">
+<pre><span class="nc">.placeholder</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#d0d0d0</span><span class="p">;</span> <span class="p">}</span>
+<span class="o">:</span><span class="nd">:-webkit-input-placeholder</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#d0d0d0</span><span class="p">;</span> <span class="p">}</span>
+<span class="nd">:-moz-placeholder</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#d0d0d0</span><span class="p">;</span> <span class="p">}</span>
+</pre>
+</div>
+
+
+<h2>License</h2>
+
+<p>Copyright (c) 2010 DIY Co</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at: <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/diy">diy</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
