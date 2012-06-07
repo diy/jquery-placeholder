@@ -32,7 +32,7 @@ $('input,textarea').placeholder();
 ```css
 .placeholder { color: #d0d0d0; }
 ::-webkit-input-placeholder { color: #d0d0d0; }
-:-moz-placeholder { color: #d0d0d0; }
+input:-moz-placeholder, textarea:-moz-placeholder { color: #d0d0d0; }
 ```
 
 ## License
