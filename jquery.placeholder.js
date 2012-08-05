@@ -90,11 +90,11 @@
 									$placeholder.show();
 								}
 							});
-						    	input.onpropertychange = function() {
-						        	if (event.propertyName == "value") {
-						            		$placeholder.hide();
-						        	}
-						    	};						
+							input.onpropertychange = function() {
+								if (event.propertyName === 'value') {
+									$placeholder.trigger('focus.placeholder');
+								}
+							};
 							$input.trigger('blur.placeholder');
 						}
 					}
