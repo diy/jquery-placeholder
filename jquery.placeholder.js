@@ -86,9 +86,7 @@
 								$placeholder.hide();
 							});
 							$input.on('blur.placeholder', function() {
-								if (!$.trim($input.val()).length) {
-									$placeholder.show();
-								}
+								$placeholder.toggle(!$.trim($input.val()).length);
 							});
 							input.onpropertychange = function() {
 								if (event.propertyName === 'value') {
