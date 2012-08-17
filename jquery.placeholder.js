@@ -31,7 +31,8 @@
 					var tagName = this.tagName.toLowerCase();
 					if (tagName === 'input' || tagName === 'textarea') {
 						var text = $(this).attr('placeholder') || '';
-						if (text.length) {
+						var value = $(this).val();
+						if (text.length && !value) {
 							var $placeholder = $('<span>').addClass('placeholder').html(text);
 							
 							// clear existing placeholder
