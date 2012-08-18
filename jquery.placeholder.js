@@ -90,7 +90,7 @@
 							});
 							input.onpropertychange = function() {
 								if (event.propertyName === 'value') {
-									$placeholder.trigger('focus.placeholder');
+									$input.trigger('focus.placeholder');
 								}
 							};
 							$input.trigger('blur.placeholder');
