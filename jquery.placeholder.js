@@ -81,15 +81,20 @@
 									$input.trigger('focus');
 								}, 0);
 							});
-							$input.on('focus.placeholder', function() {
-								$placeholder.hide();
+							//I don't need to hide the placeholder on focus, so this event is commented out
+//							$input.on('focus.placeholder', function() {
+//								$placeholder.hide();
+//							});
+							$input.on('keydown.placeholder', function() {
+								if ($.trim($input.val()).length) $placeholder.hide();
+								else $placeholder.show();
 							});
 							$input.on('blur.placeholder', function() {
 								$placeholder.toggle(!$.trim($input.val()).length);
 							});
 							input.onpropertychange = function() {
 								if (event.propertyName === 'value') {
-									$input.trigger('focus.placeholder');
+									$input.trigger('keydown.placeholder');
 								}
 							};
 							$input.trigger('blur.placeholder');
