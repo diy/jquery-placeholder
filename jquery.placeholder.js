@@ -68,13 +68,12 @@
 								'border-left-color': 'transparent'
 							});
 							
-							$placeholder.insertBefore($input);
+                            $placeholder.appendTo($('body'));
 							
-							// compensate for y difference caused by absolute / relative difference (line-height factor)
-							var dy = $input.offset().top - $placeholder.offset().top;
-							var marginTop = parseInt($placeholder.css('margin-top'));
-							if (isNaN(marginTop)) marginTop = 0;
-							$placeholder.css('margin-top', marginTop + dy);
+							// position span above the input
+							var inputOffset=$input.offset();
+							$placeholder.css('left', inputOffset.left);
+							$placeholder.css('top', inputOffset.top);
 							
 							// show / hide
 							$placeholder.on('mousedown', function() {
