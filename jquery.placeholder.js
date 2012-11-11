@@ -55,6 +55,8 @@
 								'cursor': $input.css('cursor') || 'text',
 								'display': 'block',
 								'position': 'absolute',
+								'top' : 0,
+								'left' : 0,
 								'overflow': 'hidden',
 								'z-index': zIndex + 1,
 								'background': 'none',
@@ -68,12 +70,13 @@
 								'border-left-color': 'transparent'
 							});
 							
-                            $placeholder.appendTo($('body'));
-							
-							// position span above the input
-							var inputOffset=$input.offset();
-							$placeholder.css('left', inputOffset.left);
-							$placeholder.css('top', inputOffset.top);
+							// position span above the input, using a wrapper div
+							$wrap=$('<div></div>');
+							$wrap.css('position','relative');
+							$wrap.css('display',$input.css('display'));
+							$input.wrap($wrap);
+							$placeholder.insertAfter($input);
+							$placeholder.height($input.height());
 							
 							// show / hide
 							$placeholder.on('mousedown', function() {
