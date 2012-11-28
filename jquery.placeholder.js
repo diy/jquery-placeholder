@@ -78,9 +78,11 @@
 							
 							// show / hide
 							$placeholder.on('mousedown', function() {
-								window.setTimeout(function(){
-									$input.trigger('focus');
-								}, 0);
+								if($input.is(':enabled')) {
+									window.setTimeout(function(){
+										$input.trigger('focus');
+									}, 0);
+								}
 							});
 							$input.on('focus.placeholder', function() {
 								$placeholder.hide();
