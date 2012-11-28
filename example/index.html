@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>jquery-placeholder Examples</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-git.js"></script>
+    <script type="text/javascript" src="../jquery.placeholder.js"></script>
+    <script type="text/javascript">
+    $(function() {
+      $('.emulate input, .emulate textarea').placeholder({force: true}); d
+    });
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="demos">
+        <!-- Emulated -->
+        <div class="emulate">
+          <h3>Emulated Placeholders</h3>
+          <ul>
+            <li>
+              <p class="desc">Vanilla (no styles):</p>
+              <p class="field">
+                <input type="text" placeholder="Type something!">
+              </p>
+            </li>
+            <li>
+              <p class="desc">Non-standard padding, border, and margin:</p>
+              <p class="field">
+                <input type="text" placeholder="Type something!" style="padding: 15px 20px; border: 5px solid #e8e8e8; font-size: 18px; margin: 10px 0 0 5px">
+              </p>
+            </li>
+            <li>
+              <p class="desc">Absolute positioning:</p>
+              <p class="field" style="height:45px">
+                <input type="text" placeholder="Type something!" style="padding: 8px 10px; border: 2px solid #e8e8e8; font-size: 15px; position: absolute; top: 10px; left: 35px">
+              </p>
+            </li>
+          </ul>
+        </div>
+        <!-- Native -->
+        <div class="native">
+          <h3>Native Placeholders</h3>
+          <ul>
+            <li>
+              <p class="desc">Vanilla (no styles):</p>
+              <p class="field">
+                <input type="text" placeholder="Type something!">
+              </p>
+            </li>
+            <li>
+              <p class="desc">Non-standard padding, border, and margin:</p>
+              <p class="field">
+                <input type="text" placeholder="Type something!" style="padding: 15px 20px; border: 5px solid #e8e8e8; font-size: 18px; margin: 10px 0 0 5px">
+              </p>
+            </li>
+            <li>
+              <p class="desc">Absolute positioning:</p>
+              <p class="field" style="height:45px">
+                <input type="text" placeholder="Type something!" style="padding: 8px 10px; border: 2px solid #e8e8e8; font-size: 15px; position: absolute; top: 10px; left: 35px">
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -14,96 +14,107 @@
  * @author Brian Reavis <brian@diy.org>
  */
 
-;(function($) {
-	
-	$.fn.placeholder = function(opts) {
-		var $this = this;
-		
-		opts = $.extend({
-			force: false
-		}, opts);
-		
-		window.setTimeout(function() {
-			
-			if (!('placeholder' in document.createElement('input')) || opts.force) {
-				$this.each(function() {
-					var input = this, $input = $(this);
-					var tagName = this.tagName.toLowerCase();
-					if (tagName === 'input' || tagName === 'textarea') {
-						var text = $(this).attr('placeholder') || '';
-						if (text.length) {
-							var $placeholder = $('<span>').addClass('placeholder').html(text);
-							
-							// clear existing placeholder
-							$input.data('placeholder', text);
-							$input.removeAttr('placeholder');
-							
-							// mimic css styles applied to textbox
-							var cssProperties = [
-								'-moz-box-sizing', '-webkit-box-sizing', 'box-sizing', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
-								'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
-								'line-height', 'font-size', 'font-family', 'width', 'height', 'top', 'left', 'right', 'bottom'
-							];
-							for (var i = 0; i < cssProperties.length; i++) {
-								$placeholder.css(cssProperties[i], $input.css(cssProperties[i]));
-							}
-							var zIndex = parseInt($placeholder.css('z-index'));
-							if (isNaN(zIndex) || !zIndex) zIndex = 1;
-							
-							// css overrides
-							$placeholder.css({
-								'cursor': $input.css('cursor') || 'text',
-								'display': 'block',
-								'position': 'absolute',
-								'overflow': 'hidden',
-								'z-index': zIndex + 1,
-								'background': 'none',
-								'border-top-style': 'solid',
-								'border-right-style': 'solid',
-								'border-bottom-style': 'solid',
-								'border-left-style': 'solid',
-								'border-top-color': 'transparent',
-								'border-right-color': 'transparent',
-								'border-bottom-color': 'transparent',
-								'border-left-color': 'transparent'
-							});
-							
-							$placeholder.insertBefore($input);
-							
-							// compensate for y difference caused by absolute / relative difference (line-height factor)
-							var dy = $input.offset().top - $placeholder.offset().top;
-							var marginTop = parseInt($placeholder.css('margin-top'));
-							if (isNaN(marginTop)) marginTop = 0;
-							$placeholder.css('margin-top', marginTop + dy);
-							
-							// show / hide
-							$placeholder.on('mousedown', function() {
-								if($input.is(':enabled')) {
-									window.setTimeout(function(){
-										$input.trigger('focus');
-									}, 0);
-								}
-							});
-							$input.on('focus.placeholder', function() {
-								$placeholder.hide();
-							});
-							$input.on('blur.placeholder', function() {
-								$placeholder.toggle(!$.trim($input.val()).length);
-							});
-							input.onpropertychange = function() {
-								if (event.propertyName === 'value') {
-									$input.trigger('focus.placeholder');
-								}
-							};
-							$input.trigger('blur.placeholder');
-						}
-					}
-				});
+(function($) {
+
+	var CSS_PROPERTIES = [
+		'-moz-box-sizing', '-webkit-box-sizing', 'box-sizing',
+		'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+		'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
+		'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
+		'line-height', 'font-size', 'font-family', 'width', 'height',
+		'top', 'left', 'right', 'bottom'
+	];
+
+	var setupPlaceholder = function(input, options) {
+		var i, evt, text, styles, zIndex, marginTop, dy;
+		var $input = $(input), $placeholder;
+
+		text = $input.attr('placeholder') || '';
+		if (!text.length) return;
+
+		// clear existing placeholder
+		$input.data('placeholder', text);
+		$input.removeAttr('placeholder');
+
+		// enumerate textbox styles for mimicking
+		styles = {};
+		for (i = 0; i < CSS_PROPERTIES.length; i++) {
+			styles[CSS_PROPERTIES[i]] = $input.css(CSS_PROPERTIES[i]);
+		}
+		zIndex = parseInt($input.css('z-index'), 10);
+		if (isNaN(zIndex) || !zIndex) zIndex = 1;
+
+		// create the placeholder
+		$placeholder = $('<span>').addClass('placeholder').html(text);
+		$placeholder.css(styles);
+		$placeholder.css({
+			'cursor': $input.css('cursor') || 'text',
+			'display': 'block',
+			'position': 'absolute',
+			'overflow': 'hidden',
+			'z-index': zIndex + 1,
+			'background': 'none',
+			'border-top-style': 'solid',
+			'border-right-style': 'solid',
+			'border-bottom-style': 'solid',
+			'border-left-style': 'solid',
+			'border-top-color': 'transparent',
+			'border-right-color': 'transparent',
+			'border-bottom-color': 'transparent',
+			'border-left-color': 'transparent'
+		});
+		$placeholder.insertBefore($input);
+
+		// compensate for y difference caused by absolute / relative difference (line-height factor)
+		dy = $input.offset().top - $placeholder.offset().top;
+		marginTop = parseInt($placeholder.css('margin-top'));
+		if (isNaN(marginTop)) marginTop = 0;
+		$placeholder.css('margin-top', marginTop + dy);
+
+		// event handlers + add to document
+		$placeholder.on('mousedown', function() {
+			if (!$input.is(':enabled')) return;
+			window.setTimeout(function(){
+				$input.trigger('focus');
+			}, 0);
+		});
+
+		$input.on('focus.placeholder', function() {
+			$placeholder.hide();
+		});
+		$input.on('blur.placeholder', function() {
+			$placeholder.toggle(!$.trim($input.val()).length);
+		});
+
+		$input[0].onpropertychange = function() {
+			if (event.propertyName === 'value') {
+				$input.trigger('focus.placeholder');
 			}
-			
+		};
+
+		$input.trigger('blur.placeholder');
+	};
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+	$.fn.placeholder = function(options) {
+		var $this = this;
+		options = options || {};
+
+		if (('placeholder' in document.createElement('input')) && !options.force) {
+			return this;
+		}
+
+		window.setTimeout(function() {
+			$this.each(function() {
+				var tagName = this.tagName.toLowerCase();
+				if (tagName === 'input' || tagName === 'textarea') {
+					setupPlaceholder(this, options);
+				}
+			});
 		}, 0);
-		
+
 		return this;
 	};
-	
+
 })(jQuery);
