@@ -55,6 +55,8 @@
 								'cursor': $input.css('cursor') || 'text',
 								'display': 'block',
 								'position': 'absolute',
+								'top' : 0,
+								'left' : 0,
 								'overflow': 'hidden',
 								'z-index': zIndex + 1,
 								'background': 'none',
@@ -68,13 +70,13 @@
 								'border-left-color': 'transparent'
 							});
 							
-							$placeholder.insertBefore($input);
-							
-							// compensate for y difference caused by absolute / relative difference (line-height factor)
-							var dy = $input.offset().top - $placeholder.offset().top;
-							var marginTop = parseInt($placeholder.css('margin-top'));
-							if (isNaN(marginTop)) marginTop = 0;
-							$placeholder.css('margin-top', marginTop + dy);
+							// position span above the input, using a wrapper div
+							$wrap=$('<div></div>');
+							$wrap.css('position','relative');
+							$wrap.css('display',$input.css('display'));
+							$input.wrap($wrap);
+							$placeholder.insertAfter($input);
+							$placeholder.height($input.height());
 							
 							// show / hide
 							$placeholder.on('mousedown', function() {
@@ -84,15 +86,20 @@
 									}, 0);
 								}
 							});
-							$input.on('focus.placeholder', function() {
-								$placeholder.hide();
+							//I don't need to hide the placeholder on focus, so this event is commented out
+//							$input.on('focus.placeholder', function() {
+//								$placeholder.hide();
+//							});
+							$input.on('keydown.placeholder', function() {
+								if ($.trim($input.val()).length) $placeholder.hide();
+								else $placeholder.show();
 							});
 							$input.on('blur.placeholder', function() {
 								$placeholder.toggle(!$.trim($input.val()).length);
 							});
 							input.onpropertychange = function() {
 								if (event.propertyName === 'value') {
-									$input.trigger('focus.placeholder');
+									$input.trigger('keydown.placeholder');
 								}
 							};
 							$input.trigger('blur.placeholder');
