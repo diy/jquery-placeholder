@@ -1,20 +1,25 @@
-/** 
+/**
  * placeholder - HTML5 input placeholder polyfill
  * Copyright (c) 2012 DIY Co
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at:
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under 
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
- * ANY KIND, either express or implied. See the License for the specific language 
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+ * ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  *
- * @author Brian Reavis <brian@diy.org>
+ * @author Brian Reavis <brian@thirdroute.com>
  */
 
 (function($) {
+
+	var NATIVE_SUPPORT = (function() {
+		var el = document.createElement('input');
+		return Object.prototype.hasOwnProperty.call(el, 'placeholder');
+	})();
 
 	var CSS_PROPERTIES = [
 		'-moz-box-sizing', '-webkit-box-sizing', 'box-sizing',
@@ -26,15 +31,19 @@
 	];
 
 	var setupPlaceholder = function(input, options) {
-		var i, evt, text, styles, zIndex, marginTop, dy;
+		var i, evt, text, styles, zIndex, marginTop, dy, attrNode;
 		var $input = $(input), $placeholder;
 
-		text = $input.attr('placeholder') || '';
-		if (!text.length) return;
-
-		// clear existing placeholder
-		$input.data('placeholder', text);
-		$input.removeAttr('placeholder');
+		try {
+			attrNode = $input[0].getAttributeNode('placeholder');
+			if (!attrNode) return;
+			text = $input[0].getAttribute('placeholder');
+			if (!text || !text.length) return;
+			$input[0].setAttribute('placeholder', '');
+			$input.data('placeholder', text);
+		} catch (e) {
+			return;
+		}
 
 		// enumerate textbox styles for mimicking
 		styles = {};
@@ -101,7 +110,7 @@
 		var $this = this;
 		options = options || {};
 
-		if (('placeholder' in document.createElement('input')) && !options.force) {
+		if (NATIVE_SUPPORT && !options.force) {
 			return this;
 		}
 
