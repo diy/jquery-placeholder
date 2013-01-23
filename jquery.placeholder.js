@@ -17,7 +17,7 @@
 (function($) {
 
 	var NATIVE_SUPPORT = (function() {
-                return ('placeholder' in document.createElement('input'));
+		return ('placeholder' in document.createElement('input'));
 	})();
 
 	var CSS_PROPERTIES = [
