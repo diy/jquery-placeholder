@@ -16,10 +16,7 @@
 
 (function($) {
 
-	var NATIVE_SUPPORT = (function() {
-		return ('placeholder' in document.createElement('input'));
-	})();
-
+	var NATIVE_SUPPORT = ('placeholder' in document.createElement('input'));
 	var CSS_PROPERTIES = [
 		'-moz-box-sizing', '-webkit-box-sizing', 'box-sizing',
 		'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
