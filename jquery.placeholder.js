@@ -75,6 +75,8 @@
 		marginTop = parseInt($placeholder.css('margin-top'));
 		if (isNaN(marginTop)) marginTop = 0;
 		$placeholder.css('margin-top', marginTop + dy);
+		
+		$placeholder.css('left', $input.position().left);
 
 		// event handlers + add to document
 		$placeholder.on('mousedown', function() {
