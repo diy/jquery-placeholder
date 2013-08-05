@@ -12,6 +12,9 @@
  * governing permissions and limitations under the License.
  *
  * @author Brian Reavis <brian@thirdroute.com>
+ *
+ * this fork: https://github.com/johnhunter/jquery-placeholder
+ * @author John Hunter <john@johnhunter.info>
  */
 
 (function($) {
@@ -26,15 +29,38 @@
 		'top', 'left', 'right', 'bottom'
 	];
 
+
+	var defaults = {
+		force: false,       // force all browsers to use polyfill
+		hideOnInput: true   // hide placeholder on text input instead of focus (consistent with recent browsers)
+	};
+
+	// used with hideOnInput
+	var ignoreKeys = [
+		27, // Escape
+		33, // Page up
+		34, // Page down
+		35, // End
+		36, // Home
+		37, // Left
+		38, // Up
+		39, // Right
+		40  // Down
+	];
+	var deleteKeys = [
+		8,  // Backspace
+		46  // Delete
+	];
+
 	var setupPlaceholder = function(input, options) {
 		var i, evt, text, styles, zIndex, marginTop, dy, attrNode;
 		var $input = $(input), $placeholder;
 
 		try {
 			attrNode = $input[0].getAttributeNode('placeholder');
-			if (!attrNode) return;
+			if (!attrNode) { return; }
 			text = $input[0].getAttribute('placeholder');
-			if (!text || !text.length) return;
+			if (!text || !text.length) { return; }
 			$input[0].setAttribute('placeholder', '');
 			$input.data('placeholder', text);
 		} catch (e) {
@@ -47,7 +73,7 @@
 			styles[CSS_PROPERTIES[i]] = $input.css(CSS_PROPERTIES[i]);
 		}
 		zIndex = parseInt($input.css('z-index'), 10);
-		if (isNaN(zIndex) || !zIndex) zIndex = 1;
+		if (isNaN(zIndex) || !zIndex) { zIndex = 1; }
 
 		// create the placeholder
 		$placeholder = $('<span>').addClass('placeholder').html(text);
@@ -72,21 +98,38 @@
 
 		// compensate for y difference caused by absolute / relative difference (line-height factor)
 		dy = $input.offset().top - $placeholder.offset().top;
-		marginTop = parseInt($placeholder.css('margin-top'));
-		if (isNaN(marginTop)) marginTop = 0;
+		marginTop = parseInt($placeholder.css('margin-top'), 10);
+		if (isNaN(marginTop)) { marginTop = 0; }
 		$placeholder.css('margin-top', marginTop + dy);
 
 		// event handlers + add to document
 		$placeholder.on('mousedown', function() {
-			if (!$input.is(':enabled')) return;
+			if (!$input.is(':enabled')) { return; }
 			window.setTimeout(function(){
 				$input.trigger('focus');
 			}, 0);
 		});
 
-		$input.on('focus.placeholder', function() {
-			$placeholder.hide();
-		});
+		if (options.hideOnInput) {
+			$input.on('keydown.placeholder', function(e) {
+				if ($.inArray(e.keyCode, deleteKeys) !== -1) {
+					window.setTimeout(function(){
+						if (!$input.val()) {
+							$placeholder.show();
+						}
+					}, 0);
+					return;
+				}
+				if ($.inArray(e.keyCode, ignoreKeys) !== -1) { return; }
+				$placeholder.hide();
+			});
+		}
+		else {
+			$input.on('focus.placeholder', function() {
+				$placeholder.hide();
+			});
+		}
+		
 		$input.on('blur.placeholder', function() {
 			$placeholder.toggle(!$.trim($input.val()).length);
 		});
@@ -104,7 +147,7 @@
 
 	$.fn.placeholder = function(options) {
 		var $this = this;
-		options = options || {};
+		options = $.extend({}, defaults, options || {});
 
 		if (NATIVE_SUPPORT && !options.force) {
 			return this;
