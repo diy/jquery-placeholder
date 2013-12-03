@@ -3,7 +3,7 @@
 A basic jQuery plugin that reads the [**"placeholder"** attribute](http://www.w3.org/community/webed/wiki/HTML5_form_additions#placeholder) (HTML5) and renders the placeholder text as an overlay (if not natively supported). Unlike most other plugins, this works by adding a properly-positioned `<span>` on top of the input element rather than setting its value. This keeps form serialization & validation from breaking. 
 
 ```javascript
-$('input,textarea').placeholder();
+$('input[placeholder], textarea[placeholder]').placeholder();
 ```
 
 Check out the [demos](http://diy.github.com/jquery-placeholder/)!
