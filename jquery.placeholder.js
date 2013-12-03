@@ -84,16 +84,20 @@
 			}, 0);
 		});
 
+		function togglePlaceholderForInput() {
+			$placeholder.toggle(!$.trim($input.val()).length);
+		}
+
 		$input.on('focus.placeholder', function() {
 			$placeholder.hide();
 		});
 		$input.on('blur.placeholder', function() {
-			$placeholder.toggle(!$.trim($input.val()).length);
+			togglePlaceholderForInput();
 		});
 
 		$input[0].onpropertychange = function() {
 			if (event.propertyName === 'value') {
-				$input.trigger('focus.placeholder');
+				togglePlaceholderForInput();
 			}
 		};
 
