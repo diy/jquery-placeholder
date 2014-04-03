@@ -104,6 +104,8 @@
 		$input[0].onkeyup = function () {
 			togglePlaceholderForInput();
 		};
+		
+		togglePlaceholderForInput();
 	};
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
