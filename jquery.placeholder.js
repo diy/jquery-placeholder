@@ -33,7 +33,7 @@
 		try {
 			attrNode = $input[0].getAttributeNode('placeholder');
 			if (!attrNode) return;
-			text = $input[0].getAttribute('placeholder');
+			text = $input.attr('placeholder');
 			if (!text || !text.length) return;
 			$input[0].setAttribute('placeholder', '');
 			$input.data('placeholder', text);
@@ -101,7 +101,11 @@
 			}
 		};
 
-		$input.trigger('blur.placeholder');
+		$input[0].onkeyup = function () {
+			togglePlaceholderForInput();
+		};
+		
+		togglePlaceholderForInput();
 	};
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
