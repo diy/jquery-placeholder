@@ -104,8 +104,6 @@
 		$input[0].onkeyup = function () {
 			togglePlaceholderForInput();
 		};
-
-		$input.trigger('blur.placeholder');
 	};
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
