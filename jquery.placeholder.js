@@ -87,22 +87,43 @@
 		function togglePlaceholderForInput() {
 			$placeholder.toggle(!$.trim($input.val()).length);
 		}
-
-		$input.on('focus.placeholder', function() {
-			$placeholder.hide();
-		});
-		$input.on('blur.placeholder', function() {
+		
+		if (options.stayOnFocus) {
+		    /**
+		     * We register to listen to several events that might cause a text change. When the event fires we test if
+		     * we need to show the placeholder or hide it. Some events might be redundant in certain browsers or
+		     * scenarios, but that's to be expected and in any case it shouldn't hurt performance. Highlights:
+		     * - keydown: we need to hide the placeholder when a key is pressed
+		     * - keyup: when we release the key we need to see how the value changed
+		     * - input: this event is similar to keyup, but we need to us it to catch clicks on the clear button ('X')
+		     * that IE adds to every input
+		     */
+		    $input.on('keydown.placeholder keyup.placeholder input.placeholder paste.placeholder cut.placeholder', function () {
 			togglePlaceholderForInput();
+		    });
+
+		} else {
+		    $input.on('focus.placeholder', function () {
+			$placeholder.hide();
+		    });
+		}
+
+		$input.on('blur.placeholder', function () {
+		    togglePlaceholderForInput();
 		});
 
-		$input[0].onpropertychange = function() {
-			if (event.propertyName === 'value') {
-				togglePlaceholderForInput();
-			}
+		$input[0].onpropertychange = function () {
+		    if (event.propertyName === 'value') {
+			togglePlaceholderForInput();
+		    }
 		};
 
-		$input.trigger('blur.placeholder');
-	};
+		if (options.stayOnFocus) {
+		    togglePlaceholderForInput();
+		} else {
+		    $input.trigger('blur.placeholder');
+		}
+	    };
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
