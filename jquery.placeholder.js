@@ -27,7 +27,7 @@
 	];
 
 	var setupPlaceholder = function(input, options) {
-		var i, evt, text, styles, zIndex, marginTop, dy, attrNode;
+		var i, text, styles, zIndex, marginTop, dy, marginLeft, dx, attrNode;
 		var $input = $(input), $placeholder;
 
 		try {
@@ -75,6 +75,12 @@
 		marginTop = parseInt($placeholder.css('margin-top'));
 		if (isNaN(marginTop)) marginTop = 0;
 		$placeholder.css('margin-top', marginTop + dy);
+
+		// compensate for x difference caused by absolute / relative difference
+		dx = $input.offset().left - $placeholder.offset().left;
+		marginLeft = parseInt($placeholder.css('margin-left'));
+		if (isNaN(marginLeft)) marginLeft = 0;
+		$placeholder.css('margin-left', marginLeft + dx);
 
 		// event handlers + add to document
 		$placeholder.on('mousedown', function() {
