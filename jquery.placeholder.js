@@ -85,7 +85,7 @@
 		});
 
 		function togglePlaceholderForInput() {
-			$placeholder.toggle(!$.trim($input.val()).length);
+			$placeholder.toggle(!$input.val().length);
 		}
 
 		$input.on('focus.placeholder', function() {
